@@ -28,7 +28,7 @@ class GameScreen extends Component {
       userPriceGuess: -1,
       isLeader: false,
       submitted: false,
-      userScore: -1
+      userScore: -1,
     };
 
     increaseRound(this.props.rRoomID);
@@ -101,13 +101,13 @@ class GameScreen extends Component {
 
   render() {
     return (
-      <div>
-        <Typography>Your score: {this.state.userScore}</Typography>
-        <Typography>Round: {this.state.currentRound}</Typography>
+      <div style={container}>
+        <Typography variant="h2">Score: {this.state.userScore}</Typography>
+        <Typography variant="h4">Round: {this.state.currentRound}</Typography>
         <img src={this.state.currentItemImage} alt="img" height="300px" />
-        <Typography>{this.state.currentItemName}</Typography>
+        <Typography variant="h3">{this.state.currentItemName}</Typography>
         {this.state.timeLeft === 0 && (
-          <Typography>Price: {this.state.currentItemPrice}</Typography>
+          <Typography variant="h4">Actual price: ${this.state.currentItemPrice}</Typography>
         )}
         <TextField
           onChange={e => this.setState({ userPriceGuess: e.target.value })}
@@ -138,5 +138,13 @@ class GameScreen extends Component {
     );
   }
 }
+
+const container = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "90vh"
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
