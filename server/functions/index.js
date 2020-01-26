@@ -7,6 +7,7 @@ const admin = require("firebase-admin");
 admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();
 
+/*
 exports.gameStartTrigger = functions.database
   .ref("rooms/{roomID}/gameStarted")
   .onUpdate(async (snap, context) => {
@@ -27,33 +28,26 @@ exports.gameStartTrigger = functions.database
         console.log("Error db col: " + error);
       });
   });
+*/
 
 exports.nextRoundTrigger = functions.database
   .ref("rooms/{roomID}/currentRound")
   .onUpdate(async (snap, context) => {
-    //Fetch item param
-    let chosenItem = db
-      .collection("items")
-      .get()
-      .then(snap => {
-        let docArray = [];
-        snap.forEach(doc => {
-          docArray.push(doc);
-        });
-        let arrayLength = docArray.length;
-        let index = getRandomInt(0, arrayLength);
+    let randomIndex = getRandomInt(0, data.length);
+    let chosen = data[randomIndex];
 
-        console.log("Chosen: " + docArray[index].get("itemName"));
-        return docArray[index];
-      })
-      .catch(error => {
-        console.log("Error db col: " + error);
-      });
-    await snap.afer.ref.parent.update({productName: chosenItem.get("itemName")});
-    await snap.afer.ref.parent.update({productImage: chosenItem.get("itemImage")});
-    await snap.afer.ref.parent.update({productPrice: chosenItem.get("itemPrice")});
+    await snap.after.ref.parent.update({
+      productName: chosen.itemName
+    });
+    await snap.after.ref.parent.update({
+      productImage: chosen.itemImage
+    });
+    await snap.after.ref.parent.update({
+      productPrice: chosen.itemPrice
+    });
+
     //Reset timeleft
-    const maxTime = 5; //in s
+    const maxTime = 30; //in s
     await snap.after.ref.parent.update({ timeLeft: maxTime });
     //Start countdown
     setTimeout(async () => {
@@ -66,3 +60,50 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
+
+/*
+function dbFetch() {
+  db.collection("items")
+    .get()
+    .then(snapDB => {
+      let docArray = [];
+      snapDB.forEach(doc => {
+        docArray.push(doc);
+      });
+      let arrayLength = docArray.length;
+      let index = getRandomInt(0, arrayLength);
+
+      console.log("Chosen: " + docArray[index].get("itemName"));
+      let chosenIndex = docArray[index];
+      return {
+        name: chosenIndex.get("itemName"),
+        price: chosenIndex.get("itemPrice"),
+        image: chosenIndex.get("itemImage")
+      };
+    })
+    .catch(error => {
+      console.log("Error db col: " + error);
+    });
+}
+*/
+
+let data = [{
+  "itemName" : "Archie Mcphee Instant underpants. Just add water one pair",
+  "itemImage" : "https://images-na.ssl-images-amazon.com/images/I/61XuLWJvSeL._SY355_.jpg",
+  "itemPrice" : 12.95
+},
+{
+  "itemName" : "Cat Farts Cotton Candy",
+  "itemImage" : "https://images-na.ssl-images-amazon.com/images/I/61f9C-eqPdL._SX679_.jpg",
+  "itemPrice" : 8.95
+},
+{
+  "itemName" : "Madagascar Hissing Cockroach SEXED Pair M/F",
+  "itemImage" : "https://images-na.ssl-images-amazon.com/images/I/51bt9Uft0oL._SX450_.jpg",
+  "itemPrice" : 12.5
+},
+{
+  "itemName" : "Amusing Simulation Tasty Salmon Fish Sushi Pillow Cushion Home Decor",
+  "itemImage" : "https://images-na.ssl-images-amazon.com/images/I/51oqej9eOmL._SX522_.jpg",
+  "itemPrice" : 11.8
+}];

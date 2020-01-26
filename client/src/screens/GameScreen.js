@@ -70,8 +70,12 @@ class GameScreen extends Component {
   };
 
   handleSubmitAnswer = () => {
-    if(this.state.userPriceGuess !== -1){
-      setPlayerGuess(this.props.rUsername, this.props.rRoomID, this.state.userPriceGuess)
+    if (this.state.userPriceGuess !== -1) {
+      setPlayerGuess(
+        this.props.rUsername,
+        this.props.rRoomID,
+        this.state.userPriceGuess
+      );
     }
   };
 
@@ -89,9 +93,11 @@ class GameScreen extends Component {
           ></Countdown>
         )}
         <Typography>Round: {this.state.currentRound}</Typography>
-        <Typography>Image: {this.state.currentItemImage}</Typography>
-        <Typography>Name: {this.state.currentItemName}</Typography>
-        <Typography>Price: {this.state.currentItemPrice}</Typography>
+        <img src={this.state.currentItemImage} alt="img" height="300px"/>
+        <Typography>{this.state.currentItemName}</Typography>
+        {this.state.timeLeft === 0 && (
+          <Typography>Price: {this.state.currentItemPrice}</Typography>
+        )}
         <TextField
           onChange={e => this.setState({ userPriceGuess: e.target.value })}
           type="number"
