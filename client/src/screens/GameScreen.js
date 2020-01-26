@@ -25,8 +25,11 @@ class GameScreen extends Component {
       currentItemPrice: -1,
       timeLeft: -1,
       userPriceGuess: -1,
-      isLeader: false
+      isLeader: false,
+      submitted: false,
     };
+
+    increaseRound(this.props.rRoomID);
   }
 
   componentDidMount = async () => {
@@ -55,7 +58,7 @@ class GameScreen extends Component {
         timeLeft: time
       })
     );
-    increaseRound(this.props.rRoomID);
+    
     //Sets if current client is a leader. For start game button
     await checkIfLeader(this.props.rUsername, this.props.rRoomID, value =>
       this.setState({
@@ -76,11 +79,17 @@ class GameScreen extends Component {
         this.props.rRoomID,
         this.state.userPriceGuess
       );
+      this.setState({
+        submitted: true
+      })
     }
   };
 
   handleNextRound = () => {
     increaseRound(this.props.rRoomID);
+    this.setState({
+      submitted: false
+    })
   };
 
   render() {
@@ -107,7 +116,7 @@ class GameScreen extends Component {
           onClick={this.handleSubmitAnswer}
           variant="contained"
           color="primary"
-          disabled={this.state.timeLeft === 0 ? true : false}
+          disabled={this.state.timeLeft === 0 || this.state.submitted ? true : false}
         >
           Submit
         </Button>
