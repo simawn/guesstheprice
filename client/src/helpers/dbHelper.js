@@ -138,13 +138,27 @@ export let getCurrentRound = async roomID => {
   return currentRound;
 };
 
-export let setPlayerGuess = (username, roomID, guess) => {
+export let setPlayerGuess = async (username, roomID, guess) => {
   database
     .ref("rooms/")
     .child(roomID + "/players/" + username)
     .update({
       guessAmount: guess
     });
+  let playersDoneAnsweringCount = await getPlayersDoneAnsweringCount(roomID);
+  database.ref("/rooms/" + roomID).update({
+    playersDoneAnswering: playersDoneAnsweringCount + 1
+  });
+};
+
+export let getPlayersDoneAnsweringCount = async roomID => {
+  let playersDoneAnsweringCount;
+  await database
+    .ref("/rooms/" + roomID + "/playersDoneAnswering")
+    .once("value", snap => {
+      playersDoneAnsweringCount = snap.val();
+    });
+  return playersDoneAnsweringCount;
 };
 
 export let increasePlayerPoints = async (username, roomID) => {
