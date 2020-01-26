@@ -2,7 +2,9 @@
 
 Definitely not a knock off of The Price is Right :)
 
+Lobby
 ![](/img/lobby.jpg)
+In Game
 ![](/img/ingame.jpg)
 
 ## Inspiration
