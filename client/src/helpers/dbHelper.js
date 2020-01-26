@@ -123,6 +123,30 @@ export let getCurrentRound = async roomID => {
   return currentRound;
 };
 
+export let setPlayerGuess = (username, roomID, guess) => {
+  database
+    .ref("rooms/")
+    .child(roomID + "/players/" + username)
+    .update({
+      guessAmount: guess
+    });
+};
+
+export let increasePlayerPoints = async (username, roomID) => {
+  let currentPoints = await database
+    .ref("/rooms/" + roomID + "/players/" + username + "/points")
+    .once("value", snap => {
+      currentPoints = snap.val();
+    });
+  let newPoints = currentPoints + 1;
+  database
+    .ref("rooms/")
+    .child(roomID + "/players/" + username)
+    .update({
+      points: newPoints
+    });
+};
+
 /**
  * Listens to all players joining the game
  * @param {String} roomID

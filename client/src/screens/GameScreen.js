@@ -8,7 +8,8 @@ import {
   listenCurrentItemPrice,
   listenTimeLeft,
   increaseRound,
-  checkIfLeader
+  checkIfLeader,
+  setPlayerGuess
 } from "../helpers/dbHelper";
 import { mapStateToProps, mapDispatchToProps } from "../redux/reduxMap";
 import Countdown from "react-countdown";
@@ -61,7 +62,7 @@ class GameScreen extends Component {
         isLeader: value
       })
     );
-  }
+  };
 
   //For Countdown
   renderer = ({ hours, minutes, seconds, completed }) => {
@@ -69,12 +70,14 @@ class GameScreen extends Component {
   };
 
   handleSubmitAnswer = () => {
-    console.log("submit answer");
-  }
+    if(this.state.userPriceGuess !== -1){
+      setPlayerGuess(this.props.rUsername, this.props.rRoomID, this.state.userPriceGuess)
+    }
+  };
 
   handleNextRound = () => {
     increaseRound(this.props.rRoomID);
-  }
+  };
 
   render() {
     return (
@@ -89,13 +92,29 @@ class GameScreen extends Component {
         <Typography>Image: {this.state.currentItemImage}</Typography>
         <Typography>Name: {this.state.currentItemName}</Typography>
         <Typography>Price: {this.state.currentItemPrice}</Typography>
-        <TextField type="number" label="Your guess:"></TextField>
-        <Button onClick={this.handleSubmitAnswer} variant="contained" color="primary" disabled={this.state.timeLeft === 0 ? true : false}>
+        <TextField
+          onChange={e => this.setState({ userPriceGuess: e.target.value })}
+          type="number"
+          label="Your guess ($CAD):"
+        ></TextField>
+        <Button
+          onClick={this.handleSubmitAnswer}
+          variant="contained"
+          color="primary"
+          disabled={this.state.timeLeft === 0 ? true : false}
+        >
           Submit
         </Button>
-        {this.state.isLeader && (<Button onClick={this.handleNextRound} variant="contained" color="primary" disabled={this.state.timeLeft === 0 ? false : true}>
-          Next Round
-        </Button>)}
+        {this.state.isLeader && (
+          <Button
+            onClick={this.handleNextRound}
+            variant="contained"
+            color="primary"
+            disabled={this.state.timeLeft === 0 ? false : true}
+          >
+            Next Round
+          </Button>
+        )}
       </div>
     );
   }
