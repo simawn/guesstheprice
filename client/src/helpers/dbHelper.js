@@ -120,11 +120,17 @@ export let startGame = roomID => {
 export let increaseRound = async roomID => {
   let currentRound = await getCurrentRound(roomID);
   let nextRound = currentRound + 1;
-  database
+  await database
     .ref("rooms/")
     .child(roomID)
     .update({
       currentRound: nextRound
+    });
+    await database
+    .ref("rooms/")
+    .child(roomID)
+    .update({
+      playersDoneAnswering: 0
     });
 };
 
@@ -247,3 +253,12 @@ export let listenTimeLeft = (roomID, callback) => {
       callback(snap.val());
     });
 };
+
+export let listenCurrentUserScore = (username, roomID, callback) => {
+  database
+    .ref("rooms/")
+    .child(roomID + "/players/" + username + "/points")
+    .on("value", snap => {
+      callback(snap.val());
+    });
+}

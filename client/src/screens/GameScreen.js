@@ -9,7 +9,8 @@ import {
   listenTimeLeft,
   increaseRound,
   checkIfLeader,
-  setPlayerGuess
+  setPlayerGuess,
+  listenCurrentUserScore
 } from "../helpers/dbHelper";
 import { mapStateToProps, mapDispatchToProps } from "../redux/reduxMap";
 import Countdown from "react-countdown";
@@ -27,6 +28,7 @@ class GameScreen extends Component {
       userPriceGuess: -1,
       isLeader: false,
       submitted: false,
+      userScore: -1
     };
 
     increaseRound(this.props.rRoomID);
@@ -59,7 +61,11 @@ class GameScreen extends Component {
         timeLeft: time
       })
     );
-    
+    listenCurrentUserScore(this.props.rUsername, this.props.rRoomID, score => {
+      this.setState({
+        userScore: score
+      });
+    });
     //Sets if current client is a leader. For start game button
     await checkIfLeader(this.props.rUsername, this.props.rRoomID, value =>
       this.setState({
@@ -82,7 +88,7 @@ class GameScreen extends Component {
       );
       this.setState({
         submitted: true
-      })
+      });
     }
   };
 
@@ -90,20 +96,15 @@ class GameScreen extends Component {
     increaseRound(this.props.rRoomID);
     this.setState({
       submitted: false
-    })
+    });
   };
 
   render() {
     return (
       <div>
-        {this.state.timeLeft !== -1 && (
-          <Countdown
-            date={Date.now() + this.state.timeLeft * 1000}
-            renderer={this.renderer}
-          ></Countdown>
-        )}
+        <Typography>Your score: {this.state.userScore}</Typography>
         <Typography>Round: {this.state.currentRound}</Typography>
-        <img src={this.state.currentItemImage} alt="img" height="300px"/>
+        <img src={this.state.currentItemImage} alt="img" height="300px" />
         <Typography>{this.state.currentItemName}</Typography>
         {this.state.timeLeft === 0 && (
           <Typography>Price: {this.state.currentItemPrice}</Typography>
@@ -117,7 +118,9 @@ class GameScreen extends Component {
           onClick={this.handleSubmitAnswer}
           variant="contained"
           color="primary"
-          disabled={this.state.timeLeft === 0 || this.state.submitted ? true : false}
+          disabled={
+            this.state.submitted ? true : false
+          }
         >
           Submit
         </Button>
