@@ -60,6 +60,7 @@ class GameScreen extends Component {
     return <span>{seconds}</span>;
   };
 
+  handleSubmit
   render() {
     return (
       <div>
@@ -74,6 +75,9 @@ class GameScreen extends Component {
         <Typography>Name: {this.state.currentItemName}</Typography>
         <Typography>Price: {this.state.currentItemPrice}</Typography>
         <TextField type="number" label="Your guess:"></TextField>
+        <Button onClick={this.handleSubmit} variant="contained" color="primary" disabled={this.state.timeLeft === 0 ? true : false}>
+          Submit
+        </Button>
       </div>
     );
   }
