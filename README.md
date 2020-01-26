@@ -1,68 +1,27 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Guess The Price
 
-## Available Scripts
+Definitely not a knock off of The Price is Right :)
 
-In the project directory, you can run:
+![](/img/lobby.jpg)
+![](/img/ingame.jpg)
 
-### `npm start`
+## Inspiration
+When our group of friends hangout, we often play games like JackBox, which has games that are super fun and easy to setup. All you need is the Internet and your phone. Our goal was to make something similar that you could just jump in and play something fun and interesting.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## What it does
+The game is quite simple. You need to guess the price of an item from Amazon. Just like JackBox, you can create a room which would allow you to invite your friends through a unique code. Once everyone is ready, you can start the game. Everyone is given the name of the product with its image and whoever guesses closest to the actual price wins that round!
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## How we built it
+Our idea was to use Google's real time db so that all players would be updated when the state of the game changes. This way there would be no way to mess with the game and no real need for a backend. The frontend was made in React and Redux.
 
-### `npm test`
+## Challenges we ran into
+Our initial idea was to use Amazon's ItemSearch API, but there were many restrictions that made this impossible (Being an associate, having confirmed sales, etc). Therefore, our next option was just to scrape the data ourselves, which was still a challenge, because all our serverside functions would need to be inside Cloud Functions (Google's lambdas) since we were using the real-time db (Firebase). This made a lot of node modules crash or just not work.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Accomplishments that we are proud of
+We managed to build a game that we will be able to play with friends and family which we're sure they will enjoy.
 
-### `npm run build`
+## What we learned
+We learned that Firebase is a completely different platform than the traditional backend/db stacks and that even though it does a lot and is very user-friendly, it has many gotchas when coming from the standard server-side technologies.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## What's next for Guess The Price
+The next step would be to improve the UI, lots of user validation, more items, possibly implement the backend with websockets,... lots of stuff
