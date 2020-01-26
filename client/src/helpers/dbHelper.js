@@ -60,9 +60,9 @@ export let checkIfRoomExist = async roomID => {
 };
 
 /**
- * Check if the username exists in the roomID. 
- * @param {String} username 
- * @param {String} roomID 
+ * Check if the username exists in the roomID.
+ * @param {String} username
+ * @param {String} roomID
  */
 export let checkIfUserExist = async (username, roomID) => {
   let userExists;
@@ -87,7 +87,7 @@ export let startGame = roomID => {};
  * @param {String} roomID
  * @returns A list of players in the current room
  */
-export let listenPlayersList = roomID => {
+export let listenPlayersList = (roomID, callback) => {
   database
     .ref("rooms/")
     .child(roomID + "/players")
@@ -96,7 +96,7 @@ export let listenPlayersList = roomID => {
       snap.forEach(player => {
         players.push(player.key);
       });
-      return players;
+      callback(players);
     });
 };
 

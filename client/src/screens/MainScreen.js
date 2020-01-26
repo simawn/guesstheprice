@@ -74,7 +74,6 @@ class MainScreen extends Component {
       this.props.setRUsername(this.state.username);
       this.props.setRRoomID(this.state.roomID);
       this.props.setRGameState(1);
-      console.log("Going to lobby... Redux props: " + JSON.stringify(this.props))
     };
   }
 
