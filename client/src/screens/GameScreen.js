@@ -7,7 +7,8 @@ import {
   listenCurrentItemName,
   listenCurrentItemPrice,
   listenTimeLeft,
-  increaseRound
+  increaseRound,
+  checkIfLeader
 } from "../helpers/dbHelper";
 import { mapStateToProps, mapDispatchToProps } from "../redux/reduxMap";
 import Countdown from "react-countdown";
@@ -23,10 +24,11 @@ class GameScreen extends Component {
       currentItemPrice: -1,
       timeLeft: -1,
       userPriceGuess: -1,
+      isLeader: false
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     listenCurrentRound(this.props.rRoomID, round =>
       this.setState({
         currentRound: round
@@ -53,6 +55,12 @@ class GameScreen extends Component {
       })
     );
     increaseRound(this.props.rRoomID);
+    //Sets if current client is a leader. For start game button
+    await checkIfLeader(this.props.rUsername, this.props.rRoomID, value =>
+      this.setState({
+        isLeader: value
+      })
+    );
   }
 
   //For Countdown
@@ -60,7 +68,14 @@ class GameScreen extends Component {
     return <span>{seconds}</span>;
   };
 
-  handleSubmit
+  handleSubmitAnswer = () => {
+    console.log("submit answer");
+  }
+
+  handleNextRound = () => {
+    increaseRound(this.props.rRoomID);
+  }
+
   render() {
     return (
       <div>
@@ -75,9 +90,12 @@ class GameScreen extends Component {
         <Typography>Name: {this.state.currentItemName}</Typography>
         <Typography>Price: {this.state.currentItemPrice}</Typography>
         <TextField type="number" label="Your guess:"></TextField>
-        <Button onClick={this.handleSubmit} variant="contained" color="primary" disabled={this.state.timeLeft === 0 ? true : false}>
+        <Button onClick={this.handleSubmitAnswer} variant="contained" color="primary" disabled={this.state.timeLeft === 0 ? true : false}>
           Submit
         </Button>
+        {this.state.isLeader && (<Button onClick={this.handleNextRound} variant="contained" color="primary" disabled={this.state.timeLeft === 0 ? false : true}>
+          Next Round
+        </Button>)}
       </div>
     );
   }
