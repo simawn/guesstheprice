@@ -29,6 +29,7 @@ class GameScreen extends Component {
       isLeader: false,
       submitted: false,
       userScore: -1,
+      gotItRight: false
     };
 
     increaseRound(this.props.rRoomID);
@@ -38,7 +39,8 @@ class GameScreen extends Component {
     listenCurrentRound(this.props.rRoomID, round =>
       this.setState({
         currentRound: round,
-        submitted: false
+        submitted: false,
+        gotItRight: false,
       })
     );
     listenCurrentItemImage(this.props.rRoomID, img =>
@@ -63,7 +65,8 @@ class GameScreen extends Component {
     );
     listenCurrentUserScore(this.props.rUsername, this.props.rRoomID, score => {
       this.setState({
-        userScore: score
+        userScore: score,
+        gotItRight: true
       });
     });
     //Sets if current client is a leader. For start game button
@@ -102,7 +105,7 @@ class GameScreen extends Component {
   render() {
     return (
       <div style={container}>
-        <Typography variant="h2">Score: {this.state.userScore}</Typography>
+        <Typography variant="h2" style={{color: this.state.gotItRight ? "#056608" : "#000000"}}>Score: {this.state.userScore}</Typography>
         <Typography variant="h4">Round: {this.state.currentRound}</Typography>
         <img src={this.state.currentItemImage} alt="img" height="300px" />
         <Typography variant="h3">{this.state.currentItemName}</Typography>
@@ -140,11 +143,11 @@ class GameScreen extends Component {
 }
 
 const container = {
+  backgroundColor: "#000000",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  height: "90vh"
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
