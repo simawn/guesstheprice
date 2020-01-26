@@ -78,9 +78,29 @@ export let checkIfUserExist = async (username, roomID) => {
   return userExists;
 };
 
-export let checkIfLeader = (username, roomID) => {};
+export let checkIfLeader = (username, roomID, callback) => {
+  database
+    .ref("rooms/")
+    .child(roomID + "/players/" + username + "/leader")
+    .once("value", snap => {
+      if (snap.val()) {
+        callback(true);
+        return true;
+      } else {
+        callback(false);
+        return false;
+      }
+    });
+};
 
-export let startGame = roomID => {};
+export let startGame = roomID => {
+  database
+    .ref("rooms/")
+    .child(roomID)
+    .update({
+      gameStarted: true
+    });
+};
 
 /**
  * Listens to all players joining the game
@@ -97,6 +117,15 @@ export let listenPlayersList = (roomID, callback) => {
         players.push(player.key);
       });
       callback(players);
+    });
+};
+
+export let listenGameStart = (roomID, callback) => {
+  database
+    .ref("rooms/")
+    .child(roomID + "/gameStarted")
+    .on("value", snap => {
+      callback(snap.val());
     });
 };
 
