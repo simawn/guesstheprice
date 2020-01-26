@@ -70,14 +70,73 @@ exports.doneAnswering = functions.database
 
     await snap.after.ref.parent.once("value", snapshot => {
       totalPlayerInRoom = snapshot.val().currentPlayerCount;
-    })
+    });
 
     //If all player answers, timer ends.
-    if(currentDoneAnswering === totalPlayerInRoom) {
-      console.log("round end. all player answer")
+    if (currentDoneAnswering === totalPlayerInRoom) {
+      console.log("round end. all player answer");
       await snap.after.ref.parent.update({ timeLeft: 0 });
     }
   });
+
+//Calculates points when timer reaches 0
+exports.roundOver = functions.database
+  .ref("rooms/{roomID}/timeLeft")
+  .onUpdate(async (snap, context) => {
+    if (snap.after.val() === 0) {
+      let correctPrice;
+      await snap.after.ref.parent.once("value", snapshot => {
+        correctPrice = snapshot.val().productPrice;
+      });
+      console.log("Correct item price: " + correctPrice);
+
+      let userLeastDiff = "";
+      let leastDiffAmount = -1;
+
+      await snap.after.ref.parent.once("value", snapshot => {
+        let playerList = snapshot.val().players;
+
+        Object.entries(playerList).forEach(([key, value]) => {
+          let user = key;
+          let properties = value;
+          let diff = Math.abs(correctPrice - properties.guessAmount);
+          if(leastDiffAmount === -1){
+            userLeastDiff = user;
+            leastDiffAmount = diff;
+          } else if (diff <= leastDiffAmount) {
+            userLeastDiff = user;
+            leastDiffAmount = diff;
+          }
+        });
+      });
+
+      console.log(
+        "user with least diff " +
+          userLeastDiff +
+          " with diff of: " +
+          leastDiffAmount
+      );
+      //Search score of least diff
+      let currentLeastDiffScore;
+      await snap.after.ref.parent.once("value", snapshot => {
+        //console.log("search scoe val: " + JSON.stringify(snapshot.val()))
+        //console.log("search scoe val: " + JSON.stringify(snapshot.val()["players"][userLeastDiff]))
+        currentLeastDiffScore = snapshot.val()["players"][userLeastDiff]["points"];
+      })
+
+      
+      console.log("they have: " + currentLeastDiffScore);
+
+      //Update score
+      await snap.after.ref.parent.child("players/" + userLeastDiff).update({
+        points: currentLeastDiffScore + 1
+      })
+
+    } else {
+      return null;
+    }
+  });
+
 /*
 function dbFetch() {
   db.collection("items")

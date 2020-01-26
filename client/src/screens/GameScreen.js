@@ -35,7 +35,8 @@ class GameScreen extends Component {
   componentDidMount = async () => {
     listenCurrentRound(this.props.rRoomID, round =>
       this.setState({
-        currentRound: round
+        currentRound: round,
+        submitted: false
       })
     );
     listenCurrentItemImage(this.props.rRoomID, img =>
