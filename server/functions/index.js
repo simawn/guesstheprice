@@ -50,9 +50,9 @@ exports.nextRoundTrigger = functions.database
     const maxTime = 30; //in s
     await snap.after.ref.parent.update({ timeLeft: maxTime });
     //Start countdown
-    setTimeout(async () => {
-      await snap.after.ref.parent.update({ timeLeft: 0 });
-    }, maxTime * 1000);
+    // setTimeout(async () => {
+    //   await snap.after.ref.parent.update({ timeLeft: 0 });
+    // }, maxTime * 1000);
   });
 
 function getRandomInt(min, max) {
