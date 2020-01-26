@@ -188,5 +188,166 @@ let data = [
     itemImage:
       "https://images-na.ssl-images-amazon.com/images/I/51oqej9eOmL._SX522_.jpg",
     itemPrice: 11.8
+  },
+  {
+    itemName:
+      "Goldfish Cheddar Crackers, 22 Snack Packs, 28g Each",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/919-rzzYIIL._SX679_.jpg",
+    itemPrice: 7.97
+  },
+  {
+    itemName:
+      "Kellogg's Rice Krispies Square Bars 660g Jumbo Pack-Original, 30 Cereal Bars",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/41xen8wZISL.jpg",
+    itemPrice: 7.98
+  },
+  {
+    itemName:
+      "Quaker Chewy Chocolate Chip Granola Bars, 40-Count",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/91kzLlTkdGL._SX679_.jpg",
+    itemPrice: 10.27
+  },
+  {
+    itemName:
+      "Mott's Fruitsations Veggie Gluten Free Berry, 32-Count, 723 Gram",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/811kPLndHIL._SX522_.jpg",
+    itemPrice: 7.50
+  },
+  {
+    itemName:
+      "1500 Live Ladybugs - Good Bugs - Ladybugs - Guaranteed Live Delivery!",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/51Fyrf%2BC42L.jpg",
+    itemPrice: 8.25
+  },
+  {
+    itemName:
+      "Pocket Pets Live Dalmation Roly Polys! Rolie Polie Isopods",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/81YZpV3EYzL._SX679_.jpg",
+    itemPrice: 10.99 
+  },
+  {
+    itemName:
+      "Fluker's Freeze-Dried Crickets",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/81eydQeORZL._SY679_.jpg",
+    itemPrice: 2.46
+  },
+  {
+    itemName:
+      "TRUEGARD Way Lube 68 Oil 55-Gallon Drum",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/414DaavkYfL._SX342_.jpg",
+    itemPrice: 599.89
+  },
+  {
+    itemName:
+      "Graham The Moon Mens Flying-Tourbillon Moon-Retrograde 8 Piece Limited Edition Watch - 46mm 18K White Gold Watch with Blue Face and 48 Diamond Constellation",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/71AmQkTcuIL._UX679_.jpg",
+    itemPrice: 59995
+  },
+  {
+    itemName:
+      "Stührling Original Mens Watch Stainless Steel Automatic, Skeleton Dial, Dual Time, AM/PM Sun Moon",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/91OqzIDVA9L._UY679_.jpg",
+    itemPrice: 249.95
+  },
+  {
+    itemName:
+      "Rolex Cosmograph Daytona Ice Blue Dial Platinum Mens Watch",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/61ZqxOu8lML._UX679_.jpg",
+    itemPrice: 66500
+  },
+  {
+    itemName:
+      "23.32 Carat Natural Blue Tanzanite and Diamond (F-G Color, VS1-VS2 Clarity) 14K White Gold Luxury Cocktail Ring for Women Exclusively Handcrafted in USA",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/61VUd8-vHQL._UX625_.jpg",
+    itemPrice: 6435
+  },
+  {
+    itemName:
+      "Unique Royal Jewelry 18k White Gold GIA Yellow Radiant Cut Diamond .97 VS1 HPHT Ring",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/41fEnb7n9yL.jpg",
+    itemPrice: 30397
+  },
+  {
+    itemName:
+      "Ray-Ban RB3576N BLAZE CLUBMASTER Sunglasses For Men For Women",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/419D3DroKfL._UX679_.jpg",
+    itemPrice: 200
+  },
+  {
+    itemName:
+      "Daisysboutique Men's Holiday Reindeer Snowman Santa Snowflakes Sweater",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/71GWV4TNsYL._UY741_.jpg",
+    itemPrice: 14.99
+  },
+  {
+    itemName:
+      "Levenkeness Shiba Inu Dog Plush Pillow",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/514KL6gAvYL._SX679_.jpg",
+    itemPrice: 13.95
+  },
+  {
+    itemName:
+      "Cat Lamp, GoLine Gifts for Women Teen Girls Baby,Night Lights for Kids Bedroom, Cute Christmas Kitty",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/61Q2btOQVBL._SX679_.jpg",
+    itemPrice: 14.99
+  },
+  {
+    itemName:
+      "Y- STOP Hammock Chair Hanging Rope Swing - Max 320 Lbs - 2 Seat Cushions Included - Quality Cotton Weave for Superior Comfort & Durability(Beige)",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/71iNQpv0XgL._SX522_.jpg",
+    itemPrice: 46.99
+  },
+  {
+    itemName:
+      "ygmoner Lucky Cat Car Charm Porcelain Figurine Hanging Pendant (Blue & Pink)",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/61I9qIHXKoL._SX679_.jpg",
+    itemPrice: 7.5
+  },
+  {
+    itemName:
+      "GUND Pusheen Snackables Birthday Cupcake Plush Stuffed Animal, Gray, 10.5",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/71TTbee5oKL._SX679_.jpg",
+    itemPrice: 17.5
+  },
+  {
+    itemName:
+      "Fifty Shades Trilogy (Fifty Shades of Grey / Fifty Shades Darker / Fifty Shades Freed) Paperback",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/51Rcd2VHuaL._SX352_BO1,204,203,200_.jpg",
+    itemPrice: 23
+  },
+  {
+    itemName:
+      "Fresh Black Burgundy Truffles (Tuber Uncinatum) 3 oz",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/812hWgMhUML._SX679_.jpg",
+    itemPrice: 125
+  },
+  {
+    itemName:
+      "Parmigiano Reggiano PDO",
+    itemImage:
+      "https://images-na.ssl-images-amazon.com/images/I/51f4QAOVwlL.jpg",
+    itemPrice: 54.5
   }
 ];
