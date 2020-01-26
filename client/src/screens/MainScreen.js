@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
+import { connect } from "react-redux";
+
 import {
   createRoom,
   joinRoom,
@@ -8,23 +10,7 @@ import {
   checkIfUserExist
 } from "../helpers/dbHelper";
 import { isAlphaNumeric } from "../helpers/utils";
-import { connect } from "react-redux";
-
-let mapStateToProps = state => {
-  return {
-    rUsername: state.rUsername,
-    rRoomID: state.rRoomID,
-    rGameState: state.rGameState
-  };
-};
-
-let mapDispatchToProps = dispatch => {
-  return {
-    setRUsername: username => dispatch({ type: "SET_RUSERNAME", payload: username }),
-    setRRoomID: roomID => dispatch({ type: "SET_RROOMID", payload: roomID }),
-    setRGameState: gameState => dispatch({ type: "SET_RGAMESTATE", payload: gameState })
-  };
-};
+import {mapStateToProps, mapDispatchToProps} from "../redux/reduxMap";
 
 class MainScreen extends Component {
   constructor(props) {
@@ -88,6 +74,7 @@ class MainScreen extends Component {
       this.props.setRUsername(this.state.username);
       this.props.setRRoomID(this.state.roomID);
       this.props.setRGameState(1);
+      console.log("Going to lobby... Redux props: " + JSON.stringify(this.props))
     };
   }
 

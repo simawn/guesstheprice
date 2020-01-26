@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import MainScreen from "./screens/MainScreen";
+import Switcher from "./screens/Switcher";
 
 const initialState = {
   rUsername: "",
@@ -41,7 +41,7 @@ export default class App extends Component {
     return (
       <div>
         <Provider store={store}>
-          <MainScreen />
+          <Switcher />
         </Provider>
       </div>
     );
