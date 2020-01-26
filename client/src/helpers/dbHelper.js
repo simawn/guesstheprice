@@ -19,7 +19,7 @@ export let createRoom = async () => {
     productImage: "",
     productName: "",
     productPrice: -1,
-    timeLeft: 60,
+    timeLeft: -1,
     maxPlayers: 4
   });
   return genRoomID;
@@ -102,6 +102,27 @@ export let startGame = roomID => {
     });
 };
 
+export let increaseRound = async roomID => {
+  let currentRound = await getCurrentRound(roomID);
+  let nextRound = currentRound + 1;
+  database
+    .ref("rooms/")
+    .child(roomID)
+    .update({
+      currentRound: nextRound
+    });
+};
+
+export let getCurrentRound = async roomID => {
+  let currentRound;
+  await database
+    .ref("/rooms/" + roomID + "/currentRound")
+    .once("value", snap => {
+      currentRound = snap.val();
+    });
+  return currentRound;
+};
+
 /**
  * Listens to all players joining the game
  * @param {String} roomID
@@ -129,6 +150,47 @@ export let listenGameStart = (roomID, callback) => {
     });
 };
 
-export let listenCurrentItem = roomID => {};
+export let listenCurrentRound = (roomID, callback) => {
+  database
+    .ref("rooms/")
+    .child(roomID + "/currentRound")
+    .on("value", snap => {
+      callback(snap.val());
+    });
+};
 
-export let listenCurrentRound = roomID => {};
+export let listenCurrentItemImage = (roomID, callback) => {
+  database
+    .ref("rooms/")
+    .child(roomID + "/productImage")
+    .on("value", snap => {
+      callback(snap.val());
+    });
+};
+
+export let listenCurrentItemName = (roomID, callback) => {
+  database
+    .ref("rooms/")
+    .child(roomID + "/productName")
+    .on("value", snap => {
+      callback(snap.val());
+    });
+};
+
+export let listenCurrentItemPrice = (roomID, callback) => {
+  database
+    .ref("rooms/")
+    .child(roomID + "/productPrice")
+    .on("value", snap => {
+      callback(snap.val());
+    });
+};
+
+export let listenTimeLeft = (roomID, callback) => {
+  database
+    .ref("rooms/")
+    .child(roomID + "/timeLeft")
+    .on("value", snap => {
+      callback(snap.val());
+    });
+};

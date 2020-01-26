@@ -10,7 +10,7 @@ import {
   checkIfUserExist
 } from "../helpers/dbHelper";
 import { isAlphaNumeric } from "../helpers/utils";
-import {mapStateToProps, mapDispatchToProps} from "../redux/reduxMap";
+import { mapStateToProps, mapDispatchToProps } from "../redux/reduxMap";
 
 class MainScreen extends Component {
   constructor(props) {
@@ -84,12 +84,14 @@ class MainScreen extends Component {
           <Alert severity="error">{this.state.errorMessage}</Alert>
         )}
 
-        <Typography>Playername</Typography>
         <TextField
           onChange={e => this.setState({ username: e.target.value })}
+          label="Playername"
         />
-        <Typography>Room ID (optional)</Typography>
-        <TextField onChange={e => this.setState({ roomID: e.target.value })} />
+        <TextField
+          onChange={e => this.setState({ roomID: e.target.value })}
+          label="Room ID (optional)"
+        />
         <Button onClick={this.handleSubmit} variant="contained" color="primary">
           Create/Join Room
         </Button>
