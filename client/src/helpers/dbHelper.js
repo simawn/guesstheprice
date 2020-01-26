@@ -20,7 +20,9 @@ export let createRoom = async () => {
     productName: "",
     productPrice: -1,
     timeLeft: -1,
-    maxPlayers: 4
+    maxPlayers: 4,
+    currentPlayerCount: 0,
+    playersDoneAnswering: 0
   });
   return genRoomID;
 };
@@ -32,7 +34,7 @@ export let createRoom = async () => {
  * @param {String} roomID
  * @param {Boolean} isLeader
  */
-export let joinRoom = (username, roomID, isLeader) => {
+export let joinRoom = async (username, roomID, isLeader) => {
   database.ref("/rooms/" + roomID + "/players").update({
     [username]: {
       leader: isLeader,
@@ -40,8 +42,21 @@ export let joinRoom = (username, roomID, isLeader) => {
       guessAmount: 0
     }
   });
+  let playerCount = await getPlayerCount(roomID);
+  database.ref("/rooms/" + roomID).update({
+    currentPlayerCount: playerCount + 1
+  });
 };
 
+export let getPlayerCount = async roomID => {
+  let playerCount;
+  await database
+    .ref("/rooms/" + roomID + "/currentPlayerCount")
+    .once("value", snap => {
+      playerCount = snap.val();
+    });
+  return playerCount;
+};
 /**
  * Check if roomID exists
  * @param {String} roomID
