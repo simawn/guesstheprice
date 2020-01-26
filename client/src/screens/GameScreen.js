@@ -143,7 +143,6 @@ class GameScreen extends Component {
 }
 
 const container = {
-  backgroundColor: "#000000",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
