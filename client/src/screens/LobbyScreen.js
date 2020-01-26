@@ -50,15 +50,19 @@ class LobbyScreen extends Component {
 
   render() {
     return (
-      <div>
-        <Typography>
-          Send this code to friends so they can join your game.
-        </Typography>
-        <Typography>{this.props.rRoomID}</Typography>
-        <Typography>Current players in the lobby:</Typography>
+      <div style={container}>
+        <div style={mainBody}>
+          <Typography variant="h5">
+            Send this code to friends so they can join your game
+          </Typography>
+        </div>
+        <div style={roomCode}>
+          <Typography variant="h4">{this.props.rRoomID}</Typography>
+        </div>
+        <Typography variant="overline">Current players in the lobby</Typography>
         {this.state.players.map(player => {
           return (
-            <div key={player}>
+            <div style={{margin:"15px"}} key={player}>
               <Typography>{player}</Typography>
             </div>
           );
@@ -76,5 +80,28 @@ class LobbyScreen extends Component {
     );
   }
 }
+
+const container = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "90vh"
+};
+
+const mainBody = {
+  margin: "10px",
+
+};
+
+const roomCode = {
+  margin: "30px",
+  width: "80px",
+  height: "40px",
+  border: "solid black 3px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LobbyScreen);

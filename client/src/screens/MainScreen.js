@@ -79,7 +79,7 @@ class MainScreen extends Component {
 
   render() {
     return (
-      <div>
+      <div style={mainBody}>
         {this.state.errorMessage !== "" && (
           <Alert severity="error">{this.state.errorMessage}</Alert>
         )}
@@ -95,9 +95,16 @@ class MainScreen extends Component {
         <Button onClick={this.handleSubmit} variant="contained" color="primary">
           Create/Join Room
         </Button>
-      </div>
+      </div>      
     );
   }
+}
+
+const mainBody = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '90vh' 
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
