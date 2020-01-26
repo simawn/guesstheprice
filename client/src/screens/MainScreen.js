@@ -8,8 +8,25 @@ import {
   checkIfUserExist
 } from "../helpers/dbHelper";
 import { isAlphaNumeric } from "../helpers/utils";
+import { connect } from "react-redux";
 
-export default class MainScreen extends Component {
+let mapStateToProps = state => {
+  return {
+    rUsername: state.rUsername,
+    rRoomID: state.rRoomID,
+    rGameState: state.rGameState
+  };
+};
+
+let mapDispatchToProps = dispatch => {
+  return {
+    setRUsername: username => dispatch({ type: "SET_RUSERNAME", payload: username }),
+    setRRoomID: roomID => dispatch({ type: "SET_RROOMID", payload: roomID }),
+    setRGameState: gameState => dispatch({ type: "SET_RGAMESTATE", payload: gameState })
+  };
+};
+
+class MainScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -32,12 +49,12 @@ export default class MainScreen extends Component {
       });
       //User validation check
       if (this.state.username === "" || !isAlphaNumeric(this.state.username)) {
-        this.setErrorMessage("Username cannot be used.")
+        this.setErrorMessage("Username cannot be used.");
         return;
       }
       //Room name validation
       if (this.state.roomID !== "" && !isAlphaNumeric(this.state.roomID)) {
-        this.setErrorMessage("Room ID does not exist.")
+        this.setErrorMessage("Room ID does not exist.");
         return;
       }
       //If no roomID is provided, create a new room and join
@@ -48,7 +65,7 @@ export default class MainScreen extends Component {
         });
         //We are skipping username validation as we can guarantee that the username will be unique
         await joinRoom(this.state.username, this.state.roomID, true);
-        //TODO: Jump to gamescreen
+        this.goToLobby();
       } else {
         if (await checkIfRoomExist(this.state.roomID)) {
           //Username validation
@@ -58,13 +75,19 @@ export default class MainScreen extends Component {
           }
 
           await joinRoom(this.state.username, this.state.roomID, false);
-          //TODO: Jump to gamescreen
+          this.goToLobby();
         } else {
           this.setState({
             errorMessage: "Room ID does not exist!"
           });
         }
       }
+    };
+
+    this.goToLobby = () => {
+      this.props.setRUsername(this.state.username);
+      this.props.setRRoomID(this.state.roomID);
+      this.props.setRGameState(1);
     };
   }
 
@@ -88,3 +111,5 @@ export default class MainScreen extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
